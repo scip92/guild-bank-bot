@@ -6,15 +6,16 @@
     "scripts": {
         "start": "ts-node src/index.ts"
     },
+    "engines": {
+        "node": "10.x"
+    },
     "dependencies": {
+        "@types/axios": "^0.14.0",
+        "@types/node": "^13.7.4",
         "axios": "^0.19.2",
         "discord.js": "^11.5.1",
         "dotenv": "^8.2.0",
         "ts-node": "^8.6.2",
         "typescript": "^3.8.2"
-    },
-    "devDependencies": {
-        "@types/axios": "^0.14.0",
-        "@types/node": "^13.7.4"
     }
 }
