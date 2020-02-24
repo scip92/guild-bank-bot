@@ -1,0 +1,4 @@
+.env
+./data/guilds.json
+node_modules
+.idea/
