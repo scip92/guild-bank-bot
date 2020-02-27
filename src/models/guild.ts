@@ -1,4 +1,6 @@
 export interface Guild {
     id: string;
-    token: string;
+    discordId: string;
+    apiToken: string;
+    isReadonly: boolean;
 }

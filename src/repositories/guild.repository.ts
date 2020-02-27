@@ -3,7 +3,7 @@ import * as fs from "fs";
 
 export class GuildRepository {
     private static _instance: GuildRepository;
-    private readonly guilds: { [id: string]: Guild } = {};
+    private readonly guilds: { [discordId: string]: Guild } = {};
     private path = "./data/guilds.json";
 
     public static getInstance() {
@@ -21,17 +21,17 @@ export class GuildRepository {
         this.guilds = JSON.parse(savedGuilds.toString());
     }
 
-    public getById(id: string): Guild {
+    public getById(discordId: string): Guild {
         try {
-            return this.guilds[id];
+            return this.guilds[discordId];
         } catch (e) {
             return null;
         }
     }
 
-    public create(id: string, token: string) {
-        console.log(`Create new guild ${id}`);
-        this.guilds[id] = {id: id, token: token};
+    public create(guild: Guild) {
+        this.guilds[guild.discordId] = guild;
         fs.writeFileSync(this.path, JSON.stringify(this.guilds));
+        console.log(`New guild created: ${JSON.stringify(guild)}`);
     }
 }

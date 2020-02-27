@@ -7,10 +7,9 @@ const guildRepository = GuildRepository.getInstance();
 module.exports = {
     name: 'report',
     description: 'Get guild bank report',
-    async execute(message: Message, args) {
+    async execute(message: Message, args: string[]) {
         const guild = guildRepository.getById(message.guild.id);
-        console.log(guild);
-        const guildBankClient = new GuildBankApi(guild.token);
+        const guildBankClient = new GuildBankApi(guild.apiToken);
         const guildId = await guildBankClient.getGuildId();
         const characters = await guildBankClient.getCharacters(guildId);
         characters.forEach(c => {
@@ -19,7 +18,7 @@ module.exports = {
             c.bags.forEach(b => {
                 b.bagSlots.forEach(bs => {
                     response += `${bs.quantity}x ${bs.item.name} \n`;
-                })
+                });
             });
             for (let i = 0; i < response.length; i += 2000) {
                 const toSend = response.substring(i, Math.min(response.length, i + 2000));
