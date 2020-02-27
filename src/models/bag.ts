@@ -1,5 +1,5 @@
-import {Item} from "./item";
-import {BagSlot} from "./bag-slot";
+import { Item } from "./item";
+import { BagSlot } from "./bag-slot";
 
 export interface Bag {
     id: number;

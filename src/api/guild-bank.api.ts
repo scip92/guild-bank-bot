@@ -1,41 +1,53 @@
-import axios, { AxiosInstance } from "axios";
 import { Character } from "../models/character";
+import { Guild } from "../models/guild";
+import { createHttpClient } from "./http-client";
+import { AxiosInstance } from "axios";
 
-export class GuildBankApi {
-    private httpClient: AxiosInstance;
-    private baseUrl = "https://classicguildbankapi.azurewebsites.net/api";
+export class ApiRequest {
+    public forGuild(guild: Guild) {
+        return new GuildRequest(guild);
+    }
 
-    constructor(apiToken: string = null) {
-        this.httpClient = this.createHttpClient(apiToken);
-        this.httpClient.interceptors.request.use(request => {
-            console.log({ request });
-            return request
-        })
+    public withToken(token: string) {
+        return new TokenRequest(token);
+    }
+}
+
+export class TokenRequest {
+    constructor(private token: string) {
     }
 
     public getGuildId(): Promise<string> {
-        return this.httpClient.get("/guild/GetGuilds").then((result) => {
+        return createHttpClient(this.token).get("/guild/GetGuilds").then((result) => {
             return result.data[0].id;
         })
     }
+}
 
-    public getCharacters(guildId): Promise<Character[]> {
-        return this.httpClient.get(`/guild/GetCharacters/${guildId}`).then((content) => {
+export class GuildRequest {
+
+    private httpClient: AxiosInstance;
+
+    constructor(private guild: Guild) {
+        this.httpClient = createHttpClient(guild.apiToken);
+    }
+
+    public getCharacters(): Promise<Character[]> {
+        if (this.guild.isPublic) {
+            return this.getPublicCharacters();
+        }
+        return this.getPrivateCharacters();
+    }
+
+    private getPrivateCharacters(): Promise<Character[]> {
+        return this.httpClient.get(`/guild/GetCharacters/${this.guild.id}`).then((content) => {
             return content.data;
         })
     }
 
-    public getFromReadonlyGuild(guildId): Promise<Character[]> {
-        return this.httpClient.get(`/guild/GetFromReadonlyToken/${guildId}`).then((content) => {
+    private getPublicCharacters(): Promise<Character[]> {
+        return this.httpClient.get(`/guild/GetFromReadonlyToken/${this.guild.id}`).then((content) => {
             return content.data.characters;
         })
-    }
-
-    private createHttpClient(apiToken: string): AxiosInstance {
-        let headers = {};
-        if (apiToken) {
-            headers = { "Authorization": `Bearer ${apiToken}` }
-        }
-        return axios.create({ baseURL: this.baseUrl, headers });
     }
 }

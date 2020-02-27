@@ -1,6 +1,6 @@
 import {GuildRepository} from "../repositories/guild.repository";
 import {Message} from "discord.js";
-import {GuildBankApi} from "../api/guild-bank.api";
+import { ApiRequest } from "../api/guild-bank.api";
 
 const guildRepository = GuildRepository.getInstance();
 
@@ -9,9 +9,7 @@ module.exports = {
     description: 'Get complete guild bank report',
     async execute(message: Message, args: string[]) {
         const guild = guildRepository.getById(message.guild.id);
-        const guildBankClient = new GuildBankApi(guild.apiToken);
-        const guildId = await guildBankClient.getGuildId();
-        const characters = await guildBankClient.getCharacters(guildId);
+        const characters = await new ApiRequest().forGuild(guild).getCharacters();
         characters.forEach(c => {
             let response = "Guild Bank Report:\n";
             response += `Character: ${c.name}`;

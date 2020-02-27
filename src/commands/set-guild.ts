@@ -4,8 +4,8 @@ import { Guild } from "../models/guild";
 import { prefix } from "../util/constants";
 
 module.exports = {
-    name: 'setGuildId',
-    description: `Setup a public guild bank: \`${prefix}setGuildId \${guildId}\``,
+    name: 'setGuild',
+    description: `Setup a public guild bank: \`${prefix}setGuild \${guildId}\``,
     async execute(message: Message, args: string[]) {
         const guildRepository = GuildRepository.getInstance();
         const guildId = args[0];
@@ -13,9 +13,8 @@ module.exports = {
             message.reply("No Guild Id provided, please provide a valid Guild Id: `!gb:setGuildId ${guildId}`")
             return;
         }
-        const newGuild: Guild = { id: guildId, discordId: message.guild.id, apiToken: null, isReadonly: true }
+        const newGuild: Guild = { id: guildId, discordId: message.guild.id, apiToken: null, isPublic: true }
         guildRepository.create(newGuild);
-        await message.delete();
         await message.channel.send("Guild Bank configured: type '!gb:help' to see list of commands.\nHappy raiding :)");
     },
 };

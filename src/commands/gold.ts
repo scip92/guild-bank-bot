@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import { GuildRepository } from "../repositories/guild.repository";
-import { GuildBankApi } from "../api/guild-bank.api";
+import { ApiRequest } from "../api/guild-bank.api";
 import { Character, goldToString } from "../models/character";
 import { Guild } from "../models/guild";
 
@@ -25,9 +25,5 @@ module.exports = {
 };
 
 const getCharacters = async (guild: Guild): Promise<Character[]> => {
-    const guildBankClient = new GuildBankApi(guild.apiToken);
-    if (guild.isReadonly) {
-        return guildBankClient.getFromReadonlyGuild(guild.id);
-    }
-    return guildBankClient.getCharacters(guild.id);
+    return new ApiRequest().forGuild(guild).getCharacters();
 }

@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 import { GuildRepository } from "../repositories/guild.repository";
 import { Guild } from "../models/guild";
-import { GuildBankApi } from "../api/guild-bank.api";
+import { ApiRequest } from "../api/guild-bank.api";
 
 module.exports = {
     name: 'setToken',
@@ -14,16 +14,13 @@ module.exports = {
             message.reply("Cannot get Guild ID, please provide a valid token!")
             return;
         }
-        const newGuild: Guild = { id: guildId, discordId: message.guild.id, apiToken: token, isReadonly: false }
+        const newGuild: Guild = { id: guildId, discordId: message.guild.id, apiToken: token, isPublic: false }
         guildRepository.create(newGuild);
-        await message.delete();
         await message.channel.send("Guild Bank configured: type `!gb:help` to see list of commands.\nHappy raiding :)");
     },
 };
 
 
 const getGuildIdByToken = async (apiToken: string) => {
-    const guildBankApi = new GuildBankApi(apiToken);
-    const guildId = await guildBankApi.getGuildId();
-    return guildId;
+    return new ApiRequest().withToken(apiToken).getGuildId();
 }
