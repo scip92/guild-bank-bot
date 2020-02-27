@@ -6,7 +6,7 @@ const guildRepository = GuildRepository.getInstance();
 
 module.exports = {
     name: 'report',
-    description: 'Get guild bank report',
+    description: 'Get complete guild bank report',
     async execute(message: Message, args: string[]) {
         const guild = guildRepository.getById(message.guild.id);
         const guildBankClient = new GuildBankApi(guild.apiToken);
