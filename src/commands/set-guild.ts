@@ -10,7 +10,7 @@ module.exports = {
         const guildRepository = GuildRepository.getInstance();
         const guildId = args[0];
         if (!guildId) {
-            message.reply("No Guild Id provided, please provide a valid Guild Id: `!gb:setGuildId ${guildId}`")
+            message.reply("No Guild Id provided, please provide a valid Guild Id: `!gb:setGuild ${guildId}`")
             return;
         }
         const newGuild: Guild = { id: guildId, discordId: message.guild.id, apiToken: null, isPublic: true }
