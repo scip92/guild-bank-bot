@@ -8,7 +8,7 @@ const guildRepository = GuildRepository.getInstance();
 
 module.exports = {
     name: 'gold',
-    description: 'Get gold amount',
+    description: 'Get gold report',
     async execute(message: Message, args) {
         const guild = guildRepository.getById(message.guild.id);
         let response = "```\nGold report:\n";
