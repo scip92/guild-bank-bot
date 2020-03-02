@@ -28,7 +28,7 @@ client.on("message", async msg => {
     try {
         const commandHandler = client.commands.get(command);
         console.log(`Execute: ${commandHandler.name} with args "${args}"`);
-        commandHandler.execute(msg, args);
+        await commandHandler.execute(msg, args);
     } catch (error) {
         console.error(error);
         msg.reply('there was an error trying to execute that command!');
