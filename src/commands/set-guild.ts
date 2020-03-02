@@ -5,7 +5,7 @@ import { prefix } from "../util/constants";
 
 module.exports = {
     name: 'setGuild',
-    description: `Setup a public guild bank: \`${prefix}setGuild \${guildId}\``,
+    description: `Setup a public guild bank: \`${prefix}setGuild YOUR_GUILD_ID`,
     async execute(message: Message, args: string[]) {
         const guildRepository = GuildRepository.getInstance();
         const guildId = args[0];
