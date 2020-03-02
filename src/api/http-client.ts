@@ -1,4 +1,4 @@
-import axios, {AxiosInstance, AxiosResponse} from "axios";
+import axios, {AxiosInstance} from "axios";
 
 const baseUrl = "https://classicguildbankapi.azurewebsites.net/api";
 

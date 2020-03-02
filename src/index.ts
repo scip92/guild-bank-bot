@@ -1,9 +1,9 @@
 // @ts-nocheck
 import {config} from "dotenv";
 import * as Discord from "discord.js";
-import * as fs from "fs";
-import { getAllCommands } from "./util/command-helper";
-import { prefix } from "./util/constants";
+import {Guild} from "discord.js";
+import {getAllCommands} from "./util/command-helper";
+import {prefix} from "./util/constants";
 
 config();
 const client = new Discord.Client();
@@ -12,6 +12,11 @@ getAllCommands().forEach(c => client.commands.set(c.name.toLowerCase(), c));
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`)
+});
+
+client.on("guildCreate", async (guild: Guild) => {
+    await guild.owner.send('Thanks! You can use `!gb:help` to discover commands.');
+    console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
 });
 
 client.on("message", async msg => {
