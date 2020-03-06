@@ -1,9 +1,8 @@
-import { Character } from "../models/character";
-import { Guild } from "../models/guild";
-import { createHttpClient } from "./http-client";
-import { AxiosInstance } from "axios";
-import {Item, ItemWithQuantity} from "../models/item";
-import * as fs from "fs";
+import {Character} from "../models/character";
+import {Guild} from "../models/guild";
+import {createHttpClient} from "./http-client";
+import {AxiosInstance} from "axios";
+import {ItemWithQuantity} from "../models/item";
 
 export class ApiRequest {
     public forGuild(guild: Guild) {
@@ -36,7 +35,6 @@ export class GuildRequest {
 
     public async getItems(): Promise<ItemWithQuantity[]> {
         const characters = await this.getCharacters();
-        fs.writeFileSync("./response", JSON.stringify(characters));
         const itemsDictionary: { [id: string]: ItemWithQuantity } = {};
 
         characters.forEach(c => {
@@ -50,7 +48,9 @@ export class GuildRequest {
             });
         });
 
-        return Object.keys(itemsDictionary).map(r => itemsDictionary[r]);
+        return Object.keys(itemsDictionary)
+            .map(r => itemsDictionary[r])
+            .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
     }
 
     public getCharacters(): Promise<Character[]> {
