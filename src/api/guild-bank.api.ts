@@ -2,6 +2,8 @@ import { Character } from "../models/character";
 import { Guild } from "../models/guild";
 import { createHttpClient } from "./http-client";
 import { AxiosInstance } from "axios";
+import {Item, ItemWithQuantity} from "../models/item";
+import * as fs from "fs";
 
 export class ApiRequest {
     public forGuild(guild: Guild) {
@@ -30,6 +32,25 @@ export class GuildRequest {
 
     constructor(private guild: Guild) {
         this.httpClient = createHttpClient(guild.apiToken);
+    }
+
+    public async getItems(): Promise<ItemWithQuantity[]> {
+        const characters = await this.getCharacters();
+        fs.writeFileSync("./response", JSON.stringify(characters));
+        const itemsDictionary: { [id: string]: ItemWithQuantity } = {};
+
+        characters.forEach(c => {
+            c.bags.forEach(b => {
+                b.bagSlots.forEach(bs => {
+                    if (!itemsDictionary[bs.item.id]) {
+                        itemsDictionary[bs.item.id] = {...bs.item, quantity: bs.quantity};
+                    }
+                    itemsDictionary[bs.item.id].quantity += bs.quantity;
+                });
+            });
+        });
+
+        return Object.keys(itemsDictionary).map(r => itemsDictionary[r]);
     }
 
     public getCharacters(): Promise<Character[]> {
