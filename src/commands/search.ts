@@ -19,7 +19,7 @@ module.exports = {
         }
         const responseMsg = new Discord.RichEmbed().setTitle(`Guild Bank Inventory - Search Result for '${searchString}'`);
         result.forEach(r => {
-            responseMsg.addField(r.name, `${r.quantity}x`);
+            responseMsg.addField(`${r.name} [Id: ${r.id}]`, `${r.quantity}x`);
         });
         await message.channel.send(responseMsg);
     },
