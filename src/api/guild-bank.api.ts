@@ -1,12 +1,12 @@
 import {Character} from "../models/character";
-import {Guild} from "../models/guild";
+import {User} from "../models/user";
 import {createHttpClient} from "./http-client";
 import {AxiosInstance} from "axios";
 import {ItemWithQuantity} from "../models/item";
 
 export class ApiRequest {
-    public forGuild(guild: Guild) {
-        return new GuildRequest(guild);
+    public forUser(user: User) {
+        return new UserRequest(user);
     }
 
     public withToken(token: string) {
@@ -25,12 +25,12 @@ export class TokenRequest {
     }
 }
 
-export class GuildRequest {
+export class UserRequest {
 
     private httpClient: AxiosInstance;
 
-    constructor(private guild: Guild) {
-        this.httpClient = createHttpClient(guild.apiToken);
+    constructor(private user: User) {
+        this.httpClient = createHttpClient(user.apiToken);
     }
 
     public async getItems(): Promise<ItemWithQuantity[]> {
@@ -54,20 +54,20 @@ export class GuildRequest {
     }
 
     public getCharacters(): Promise<Character[]> {
-        if (this.guild.isPublic) {
+        if (this.user.isPublic) {
             return this.getPublicCharacters();
         }
         return this.getPrivateCharacters();
     }
 
     private getPrivateCharacters(): Promise<Character[]> {
-        return this.httpClient.get(`/guild/GetCharacters/${this.guild.id}`).then((content) => {
+        return this.httpClient.get(`/guild/GetCharacters/${this.user.classicGuildBankId}`).then((content) => {
             return content.data;
         })
     }
 
     private getPublicCharacters(): Promise<Character[]> {
-        return this.httpClient.get(`/guild/GetFromReadonlyToken/${this.guild.id}`).then((content) => {
+        return this.httpClient.get(`/guild/GetFromReadonlyToken/${this.user.classicGuildBankId}`).then((content) => {
             return content.data.characters;
         })
     }

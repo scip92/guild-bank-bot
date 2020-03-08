@@ -15,7 +15,11 @@
         "axios": "^0.19.2",
         "discord.js": "^11.5.1",
         "dotenv": "^8.2.0",
+        "pg": "^7.18.2",
+        "reflect-metadata": "^0.1.13",
+        "sqlite3": "^4.1.1",
         "ts-node": "^8.6.2",
+        "typeorm": "^0.2.24",
         "typescript": "^3.8.2"
     }
 }

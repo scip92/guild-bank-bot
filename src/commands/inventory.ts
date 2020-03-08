@@ -1,19 +1,14 @@
-import {GuildRepository} from "../repositories/guild.repository";
 import * as Discord from "discord.js";
 import {Message} from "discord.js";
 import {ApiRequest} from "../api/guild-bank.api";
-
-const guildRepository = GuildRepository.getInstance();
+import {User} from "../models/user";
 
 module.exports = {
     name: 'inventory',
     description: 'Get complete guild bank inventory report',
     async execute(message: Message, args: string[]) {
-        const guild = guildRepository.getById(message.guild.id);
-        const items = await new ApiRequest().forGuild(guild).getItems();
-        console.log(items);
-
-
+        const user = await User.findByDiscordId(message.guild.id);
+        const items = await new ApiRequest().forUser(user).getItems();
         const chunk = 25;
         let parts = 1;
         for (let i = 0; i < items.length; i += chunk) {
