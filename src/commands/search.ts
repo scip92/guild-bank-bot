@@ -5,7 +5,7 @@ import {User} from "../models/user";
 
 module.exports = {
     name: 'search',
-    description: 'Find specific item in inventory',
+    description: 'Find specific item in inventory: `!gb:search QUERY/ITEM_ID`',
     async execute(message: Message, args: string[]) {
         const searchString = args.join(' ');
         const user = await User.findByDiscordId(message.guild.id);
@@ -19,7 +19,7 @@ module.exports = {
         }
         const responseMsg = new Discord.RichEmbed().setTitle(`Guild Bank Inventory - Search Result for '${searchString}'`);
         result.forEach(r => {
-            responseMsg.addField(r.name, r.quantity);
+            responseMsg.addField(r.name, `${r.quantity}x`);
         });
         await message.channel.send(responseMsg);
     },

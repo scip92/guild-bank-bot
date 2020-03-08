@@ -17,6 +17,7 @@ module.exports = {
         user.isPublic = true;
         await user.save();
 
+        await message.delete();
         await message.channel.send("User Bank configured: type '!gb:help' to see list of commands.\nHappy raiding :)");
     },
 };
