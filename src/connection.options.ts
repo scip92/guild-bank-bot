@@ -7,16 +7,18 @@ export const buildConnectionOptions = (): ConnectionOptions => {
     const connectionType = process.env.DATABASE_TYPE as DatabaseType;
     if (connectionType === "postgres") {
         return {
+            entities: [User],
+            synchronize: true,
             type: "postgres",
-            url: process.env.DATABASE_URL
+            url: process.env.DATABASE_URL,
         } as PostgresConnectionOptions;
     }
     if (connectionType === "sqlite") {
         return {
+            database: "./data/cgb.sql",
             entities: [User],
-            type: "sqlite",
             synchronize: true,
-            database: "./data/cgb.sql"
+            type: "sqlite",
         } as SqliteConnectionOptions
     }
     throw new Error(`ConnectionType "${connectionType}" not supported!`);
