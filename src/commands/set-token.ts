@@ -9,7 +9,7 @@ module.exports = {
         const token = args[0];
         const guildId = await getGuildIdByToken(token);
         if (!guildId) {
-            await message.reply("Cannot get User ID, please provide a valid token!");
+            await message.reply("Cannot get Guild Id, please provide a valid token!");
             return;
         }
         const newUser = new User();
