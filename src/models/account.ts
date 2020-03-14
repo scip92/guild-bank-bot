@@ -1,7 +1,7 @@
 import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
-export class User extends BaseEntity {
+export class Account extends BaseEntity {
     @PrimaryGeneratedColumn()
     public id: number;
 
@@ -18,8 +18,8 @@ export class User extends BaseEntity {
     public isPublic: boolean;
 
     public static findByDiscordId(discordId: string) {
-        return this.createQueryBuilder("user")
-            .where("user.discordGuildId = :discordId", { discordId })
+        return this.createQueryBuilder("account")
+            .where("account.discordGuildId = :discordId", { discordId })
             .getOne();
     }
 }

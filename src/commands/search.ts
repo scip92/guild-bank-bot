@@ -1,15 +1,15 @@
 import * as Discord from "discord.js";
 import {Message} from "discord.js";
 import {ApiRequest} from "../api/guild-bank.api";
-import {User} from "../models/user";
+import {Account} from "../models/account";
 
 module.exports = {
     name: 'search',
     description: 'Find specific item in inventory: `!gb:search QUERY/ITEM_ID`',
     async execute(message: Message, args: string[]) {
         const searchString = args.join(' ');
-        const user = await User.findByDiscordId(message.guild.id);
-        const items = await new ApiRequest().forUser(user).getItems();
+        const account = await Account.findByDiscordId(message.guild.id);
+        const items = await new ApiRequest().forAccount(account).getItems();
         const result = items.filter(i => {
             return i.name.toLowerCase().includes(searchString) || i.id.toString() == searchString;
         });

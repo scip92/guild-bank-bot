@@ -1,7 +1,7 @@
 // @ts-nocheck
 import * as Discord from "discord.js";
 import {getAllCommands} from "./util/command-helper";
-import {User} from "./models/user";
+import {Account} from "./models/account";
 import {prefix} from "./util/constants";
 
 export const createDiscordClient = async () => {
@@ -13,7 +13,7 @@ export const createDiscordClient = async () => {
         console.log(`Logged in as ${client.user.tag}!`)
     });
 
-    client.on("guildCreate", async (guild: User) => {
+    client.on("guildCreate", async (guild: Account) => {
         await guild.owner.send('Thanks! You can use `!gb:help` to discover commands.');
         console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
     });

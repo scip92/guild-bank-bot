@@ -1,12 +1,12 @@
 import {Character} from "../models/character";
-import {User} from "../models/user";
+import {Account} from "../models/account";
 import {createHttpClient} from "./http-client";
 import {AxiosInstance} from "axios";
 import {ItemWithQuantity} from "../models/item";
 
 export class ApiRequest {
-    public forUser(user: User) {
-        return new UserRequest(user);
+    public forAccount(account: Account) {
+        return new AccountRequest(account);
     }
 
     public withToken(token: string) {
@@ -25,12 +25,12 @@ export class TokenRequest {
     }
 }
 
-export class UserRequest {
+export class AccountRequest {
 
     private httpClient: AxiosInstance;
 
-    constructor(private user: User) {
-        this.httpClient = createHttpClient(user.apiToken);
+    constructor(private account: Account) {
+        this.httpClient = createHttpClient(account.apiToken);
     }
 
     public async getItems(): Promise<ItemWithQuantity[]> {
@@ -54,21 +54,19 @@ export class UserRequest {
     }
 
     public getCharacters(): Promise<Character[]> {
-        if (this.user.isPublic) {
+        if (this.account.isPublic) {
             return this.getPublicCharacters();
         }
         return this.getPrivateCharacters();
     }
 
-    private getPrivateCharacters(): Promise<Character[]> {
-        return this.httpClient.get(`/guild/GetCharacters/${this.user.classicGuildBankId}`).then((content) => {
-            return content.data;
-        })
+    private async getPrivateCharacters(): Promise<Character[]> {
+        const content = await this.httpClient.get(`/guild/GetCharacters/${this.account.classicGuildBankId}`);
+        return content.data;
     }
 
-    private getPublicCharacters(): Promise<Character[]> {
-        return this.httpClient.get(`/guild/GetFromReadonlyToken/${this.user.classicGuildBankId}`).then((content) => {
-            return content.data.characters;
-        })
+    private async getPublicCharacters(): Promise<Character[]> {
+        let content = await this.httpClient.get(`/guild/GetFromReadonlyToken/${this.account.classicGuildBankId}`);
+        return content.data.characters;
     }
 }

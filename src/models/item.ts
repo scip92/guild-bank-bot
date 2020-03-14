@@ -8,6 +8,6 @@ export interface Item {
     subclass: number;
 }
 
-export interface ItemWithQuantity extends Item{
+export interface ItemWithQuantity extends Item {
     quantity: number;
 }

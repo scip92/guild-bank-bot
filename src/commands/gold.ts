@@ -1,17 +1,17 @@
 import { Message } from "discord.js";
 import { ApiRequest } from "../api/guild-bank.api";
 import { Character, goldToString } from "../models/character";
-import { User } from "../models/user";
+import { Account } from "../models/account";
 
 
 module.exports = {
     name: 'gold',
     description: 'Get gold report',
     async execute(message: Message, args) {
-        const user = await User.findByDiscordId(message.guild.id);
+        const account = await Account.findByDiscordId(message.guild.id);
         let response = "```\nGold report:\n";
         let total = 0;
-        const characters = await getCharacters(user);
+        const characters = await getCharacters(account);
         characters.forEach(c => {
             response += `${c.name}: ${goldToString(c.gold)}\n`;
             total += c.gold;
@@ -22,6 +22,6 @@ module.exports = {
     },
 };
 
-const getCharacters = async (user: User): Promise<Character[]> => {
-    return new ApiRequest().forUser(user).getCharacters();
+const getCharacters = async (account: Account): Promise<Character[]> => {
+    return new ApiRequest().forAccount(account).getCharacters();
 }

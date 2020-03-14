@@ -1,5 +1,5 @@
 import {Message} from "discord.js";
-import {User} from "../models/user";
+import {Account} from "../models/account";
 import {prefix} from "../util/constants";
 
 module.exports = {
@@ -11,11 +11,11 @@ module.exports = {
             await message.reply("No Guild Id provided, please provide a valid Guild Id: `!gb:setGuild YOUR_GUILD_ID`");
             return;
         }
-        const user = new User();
-        user.classicGuildBankId = guildId;
-        user.discordGuildId = message.guild.id;
-        user.isPublic = true;
-        await user.save();
+        const account = new Account();
+        account.classicGuildBankId = guildId;
+        account.discordGuildId = message.guild.id;
+        account.isPublic = true;
+        await account.save();
 
         await message.delete();
         await message.channel.send("Guild Bank configured: type '!gb:help' to see list of commands.\nHappy raiding :)");

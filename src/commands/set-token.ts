@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import { User } from "../models/user";
+import { Account } from "../models/account";
 import { ApiRequest } from "../api/guild-bank.api";
 
 module.exports = {
@@ -12,12 +12,12 @@ module.exports = {
             await message.reply("Cannot get Guild Id, please provide a valid token!");
             return;
         }
-        const newUser = new User();
-        newUser.discordGuildId = message.guild.id;
-        newUser.classicGuildBankId = guildId;
-        newUser.apiToken = token;
-        newUser.isPublic = false;
-        await newUser.save();
+        const account = new Account();
+        account.discordGuildId = message.guild.id;
+        account.classicGuildBankId = guildId;
+        account.apiToken = token;
+        account.isPublic = false;
+        await account.save();
         await message.delete();
         await message.channel.send("Guild Bank configured: type `!gb:help` to see list of commands.\nHappy raiding :)");
     },
