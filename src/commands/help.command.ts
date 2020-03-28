@@ -1,11 +1,13 @@
 import { Message, RichEmbed } from "discord.js";
 import { getAllCommands } from "../util/command-helper";
 import { prefix } from "../util/constants";
+import { BaseCommand } from "./base.command";
 
-module.exports = {
-    name: 'help',
-    description: 'Help command',
-    async execute(message: Message, args: string[]) {
+export class HelpCommand extends BaseCommand {
+    public name = "help";
+    public description = 'Help command';
+
+    public async action(message: Message, args: string[]) {
         const commands = getAllCommands().filter(f => f.name != "help");
         const commandCheat = new RichEmbed().setTitle('Classic Bank Commands');
         commands.forEach(command => {
@@ -13,5 +15,5 @@ module.exports = {
         });
         await message.delete();
         await message.channel.send(commandCheat);
-    },
+    }
 };

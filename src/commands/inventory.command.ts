@@ -1,12 +1,13 @@
 import * as Discord from "discord.js";
-import {Message} from "discord.js";
-import {ApiRequest} from "../api/guild-bank.api";
-import {Account} from "../models/account";
+import { Message } from "discord.js";
+import { ApiRequest } from "../api/guild-bank.api";
+import { Account } from "../models/account";
+import { BaseCommand } from "./base.command";
 
-module.exports = {
-    name: 'inventory',
-    description: 'Get complete guild bank inventory report',
-    async execute(message: Message, args: string[]) {
+export class InventoryCommand extends BaseCommand {
+    public name = 'inventory';
+    public description = 'Get complete guild bank inventory report';
+    public async action(message: Message, args: string[]) {
         const account = await Account.findByDiscordId(message.guild.id);
         const items = await new ApiRequest().forAccount(account).getItems();
         const chunk = 25;
@@ -19,5 +20,5 @@ module.exports = {
             parts++;
         }
         await message.delete();
-    },
+    }
 };

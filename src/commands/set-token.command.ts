@@ -1,11 +1,13 @@
 import { Message } from "discord.js";
 import { Account } from "../models/account";
 import { ApiRequest } from "../api/guild-bank.api";
+import { BaseCommand } from "./base.command";
 
-module.exports = {
-    name: 'setToken',
-    description: 'Setup a private classic guild bank account: `!gb:setToken API_TOKEN`',
-    async execute(message: Message, args: string[]) {
+export class SetTokenCommand extends BaseCommand {
+    public name = 'setToken';
+    public description = 'Setup a private classic guild bank account: `!gb:setToken API_TOKEN`';
+
+    public async action(message: Message, args: string[]) {
         const token = args[0];
         const guildId = await getGuildIdByToken(token);
         if (!guildId) {
@@ -20,7 +22,7 @@ module.exports = {
         await account.save();
         await message.delete();
         await message.channel.send("Guild Bank configured: type `!gb:help` to see list of commands.\nHappy raiding :)");
-    },
+    }
 };
 
 

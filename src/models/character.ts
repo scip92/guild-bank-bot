@@ -1,4 +1,4 @@
-import {Bag} from "./bag";
+import { Bag } from "./bag";
 
 export interface Character {
     id: string;
