@@ -11,7 +11,7 @@ export class HelpCommand extends BaseCommand {
 
     public async action(message: Message, args: string[]) {
         const commands = getAllCommands().filter(f => f.name != "help");
-        const commandCheat = new RichEmbed().setTitle('Classic Bank Commands');
+        const commandCheat = new RichEmbed().setTitle('Guild Bank Commands');
         commands.forEach(command => {
             commandCheat.addField(`${prefix}${command.name}`, command.description, false);
         });
