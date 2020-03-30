@@ -17,9 +17,7 @@ export class OffizerCommand extends BaseCommand {
         }
 
         const roleId = roleTag.match(/\d/g).join("");
-        console.log(roleId);
         const discordRole = message.guild.roles.find("id", roleId)
-        console.log(discordRole);
 
         if (!discordRole) {
             await message.reply(`Role not found on your discord server, please provide a valid role`);
@@ -37,7 +35,6 @@ export class OffizerCommand extends BaseCommand {
         offizerRole.save();
 
         await account.save();
-        await message.delete();
         await message.channel.send("Offizer added!");
     }
 };
