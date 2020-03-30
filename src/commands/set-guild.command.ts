@@ -4,8 +4,11 @@ import { prefix } from "../util/constants";
 import { BaseCommand } from "./base.command";
 
 export class SetGuildCommand extends BaseCommand {
+
     public readonly name = 'setGuild';
+
     public readonly description = `Setup a public classic guild bank account: \`${prefix}setGuild YOUR_GUILD_ID\``;
+
     public async action(message: Message, args: string[]) {
         const guildId = args[0];
         if (!guildId) {

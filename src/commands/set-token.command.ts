@@ -4,7 +4,9 @@ import { ApiRequest } from "../api/guild-bank.api";
 import { BaseCommand } from "./base.command";
 
 export class SetTokenCommand extends BaseCommand {
+
     public name = 'setToken';
+
     public description = 'Setup a private classic guild bank account: `!gb:setToken API_TOKEN`';
 
     public async action(message: Message, args: string[]) {

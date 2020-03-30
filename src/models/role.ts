@@ -9,6 +9,6 @@ export class Role extends BaseEntity {
     @Column()
     public discordRoleId: string;
 
-    @ManyToOne(type => Account, account => account.memberRoles)
+    @ManyToOne(type => Account, account => account.offizerRoles)
     public account: Account;
 }

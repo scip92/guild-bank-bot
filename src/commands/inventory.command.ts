@@ -5,8 +5,11 @@ import { Account } from "../models/account";
 import { BaseCommand } from "./base.command";
 
 export class InventoryCommand extends BaseCommand {
+
     public name = 'inventory';
+
     public description = 'Get complete guild bank inventory report';
+
     public async action(message: Message, args: string[]) {
         const account = await Account.findByDiscordId(message.guild.id);
         const items = await new ApiRequest().forAccount(account).getItems();

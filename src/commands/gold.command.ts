@@ -5,8 +5,11 @@ import { Account } from "../models/account";
 import { BaseCommand } from "./base.command";
 
 export class GoldCommand extends BaseCommand {
+
     public name = "gold";
+
     public description = "Get gold report";
+
     public async action(message: Message, args) {
         const account = await Account.findByDiscordId(message.guild.id);
         let response = "```\nGold report:\n";

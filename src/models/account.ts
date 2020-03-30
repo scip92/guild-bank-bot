@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, OneToMany, JoinTable } from "typeorm";
 import { Role } from "./role";
 
 @Entity()
@@ -19,7 +19,8 @@ export class Account extends BaseEntity {
     public isPublic: boolean;
 
     @OneToMany(type => Role, role => role.account)
-    memberRoles: Role[];
+    @JoinTable()
+    offizerRoles: Role[];
 
     @Column()
     adminUserId: string;
@@ -27,6 +28,7 @@ export class Account extends BaseEntity {
     public static findByDiscordId(discordId: string) {
         return this.createQueryBuilder("account")
             .where("account.discordGuildId = :discordId", {discordId})
+            .leftJoinAndSelect("account.offizerRoles", "role")
             .getOne();
     }
 }

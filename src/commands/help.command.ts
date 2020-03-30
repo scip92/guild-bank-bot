@@ -4,7 +4,9 @@ import { prefix } from "../util/constants";
 import { BaseCommand } from "./base.command";
 
 export class HelpCommand extends BaseCommand {
+
     public name = "help";
+
     public description = 'Help command';
 
     public async action(message: Message, args: string[]) {
