@@ -37,6 +37,9 @@ export abstract class BaseCommand {
 
     private async hasMemberOffizerRole(member: GuildMember): Promise<boolean> {
         const account = await this.getAccount();
+        if (!account) {
+            return true;
+        }
         if (!account.offizerRoles || account.offizerRoles.length === 0) {
             return true;
         }
