@@ -7,7 +7,7 @@ export class OffizerCommand extends BaseCommand {
 
     public name = "offizer";
 
-    public description = `Add a offizer to use the guild bank bot: \`${prefix}offizer YOUR_OFFIZER_ROLE\``;
+    public description = `Add a offizer to use the guild bank bot: \`${prefix}offizer @YOUR_OFFIZER_ROLE\``;
 
     async action(message: Message, args: string[]) {
         const roleTag = args[0];
