@@ -13,8 +13,6 @@ export class SearchCommand extends BaseCommand {
 
     public usage = `${prefix}${this.name} ITEM_NAME/ITEM_ID`
 
-    public offizerOnly = true;
-
     public async action(message: Message, args: string[]) {
         const searchString = args.join(' ');
         const account = await this.getAccount();

@@ -8,6 +8,8 @@ export class SetTokenCommand extends BaseCommand {
     public name = 'setToken';
 
     public description = 'Setup a private classic guild bank account: `!gb:setToken API_TOKEN`';
+    
+    public offizerOnly = true;
 
     public async action(message: Message, args: string[]) {
         const token = args[0];
