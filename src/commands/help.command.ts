@@ -15,7 +15,6 @@ export class HelpCommand extends BaseCommand {
         commands.forEach(command => {
             commandCheat.addField(`${prefix}${command.name}`, command.description, false);
         });
-        await message.delete();
         await message.channel.send(commandCheat);
     }
 };
