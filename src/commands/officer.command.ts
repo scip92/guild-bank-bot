@@ -9,6 +9,8 @@ export class OfficerCommand extends BaseCommand {
 
     public description = `Add a offizer to use the guild bank bot: \`${prefix}officer @YOUR_OFFICER_ROLE\``;
 
+    public officerOnly = true;
+
     async action(message: Message, args: string[]) {
         const roleTag = args[0];
         if (!roleTag) {
