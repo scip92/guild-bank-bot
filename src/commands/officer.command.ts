@@ -7,7 +7,7 @@ export class OfficerCommand extends BaseCommand {
 
     public name = "officer";
 
-    public description = `Add a offizer to use the guild bank bot: \`${prefix}officer @YOUR_OFFICER_ROLE\``;
+    public description = `Add a officer to use the guild bank bot: \`${prefix}officer @YOUR_OFFICER_ROLE\``;
 
     public officerOnly = true;
 

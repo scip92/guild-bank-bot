@@ -40,10 +40,10 @@ export abstract class BaseCommand {
         if (!account) {
             return true;
         }
-        if (!account.offizerRoles || account.offizerRoles.length === 0) {
+        if (!account.officerRoles || account.officerRoles.length === 0) {
             return true;
         }
-        const filtered = account.offizerRoles.filter(or => member.roles.array().find(r => r.id === or.discordRoleId));
+        const filtered = account.officerRoles.filter(or => member.roles.array().find(r => r.id === or.discordRoleId));
         return filtered.length > 0;
     }
 
