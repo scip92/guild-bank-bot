@@ -22,9 +22,6 @@ export class Account extends BaseEntity {
     @JoinTable()
     officerRoles: Role[];
 
-    @Column()
-    adminUserId: string;
-
     public static findByDiscordId(discordId: string) {
         return this.createQueryBuilder("account")
             .where("account.discordGuildId = :discordId", {discordId})
