@@ -21,7 +21,6 @@ export class SetGuildCommand extends BaseCommand {
         account.classicGuildBankId = guildId;
         account.discordGuildId = message.guild.id;
         account.isPublic = true;
-        account.adminUserId = message.author.id;
 
         await account.save();
         await message.delete();

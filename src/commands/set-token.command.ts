@@ -23,6 +23,7 @@ export class SetTokenCommand extends BaseCommand {
         account.classicGuildBankId = guildId;
         account.apiToken = token;
         account.isPublic = false;
+
         await account.save();
         await message.delete();
         await message.channel.send("Guild Bank configured: type `!gb:help` to see list of commands.\nHappy raiding :)");
