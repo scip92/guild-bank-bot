@@ -19,7 +19,7 @@ export class InventoryCommand extends BaseCommand {
             const responseMsg = new Discord.RichEmbed().setTitle(`Guild Bank Inventory - Part #${parts}`);
             const tmpResponse = items.slice(i, i + chunk);
             tmpResponse.forEach((res) => responseMsg.addField(res.name, `${res.quantity} x`, true));
-            await message.channel.send(responseMsg);
+            await message.author.send(responseMsg);
             parts++;
         }
         await message.delete();
