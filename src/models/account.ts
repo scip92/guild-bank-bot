@@ -20,7 +20,7 @@ export class Account extends BaseEntity {
 
     @OneToMany(type => Role, role => role.account)
     @JoinTable()
-    offizerRoles: Role[];
+    officerRoles: Role[];
 
     @Column()
     adminUserId: string;
@@ -28,7 +28,7 @@ export class Account extends BaseEntity {
     public static findByDiscordId(discordId: string) {
         return this.createQueryBuilder("account")
             .where("account.discordGuildId = :discordId", {discordId})
-            .leftJoinAndSelect("account.offizerRoles", "role")
+            .leftJoinAndSelect("account.officerRoles", "role")
             .getOne();
     }
 }

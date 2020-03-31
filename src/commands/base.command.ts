@@ -9,7 +9,7 @@ export abstract class BaseCommand {
 
     public abstract action(message: Message, args: string[]): Promise<void>;
 
-    public offizerOnly = false;
+    public officerOnly = false;
 
     protected getAccount: () => Promise<Account>;
 
@@ -28,14 +28,14 @@ export abstract class BaseCommand {
     }
 
     private async hasPermission(member: GuildMember): Promise<boolean> {
-        if (this.offizerOnly === false) {
+        if (this.officerOnly === false) {
             return true;
         }
-        return await this.hasMemberOffizerRole(member);
+        return await this.hasMemberOfficerRole(member);
 
     }
 
-    private async hasMemberOffizerRole(member: GuildMember): Promise<boolean> {
+    private async hasMemberOfficerRole(member: GuildMember): Promise<boolean> {
         const account = await this.getAccount();
         if (!account) {
             return true;

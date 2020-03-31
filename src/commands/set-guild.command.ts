@@ -9,7 +9,7 @@ export class SetGuildCommand extends BaseCommand {
 
     public readonly description = `Setup a public classic guild bank account: \`${prefix}setGuild YOUR_GUILD_ID\``;
 
-    public offizerOnly = true;
+    public officerOnly = true;
 
     public async action(message: Message, args: string[]) {
         const guildId = args[0];

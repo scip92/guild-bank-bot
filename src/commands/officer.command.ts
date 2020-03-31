@@ -3,16 +3,16 @@ import { prefix } from "../util/constants";
 import { BaseCommand } from "./base.command";
 import { Role } from "../models/role";
 
-export class OffizerCommand extends BaseCommand {
+export class OfficerCommand extends BaseCommand {
 
-    public name = "offizer";
+    public name = "officer";
 
-    public description = `Add a offizer to use the guild bank bot: \`${prefix}offizer @YOUR_OFFIZER_ROLE\``;
+    public description = `Add a offizer to use the guild bank bot: \`${prefix}officer @YOUR_OFFICER_ROLE\``;
 
     async action(message: Message, args: string[]) {
         const roleTag = args[0];
         if (!roleTag) {
-            await message.reply("No role provided, please provide a valid role: `!gb:offizer YOUR_OFFIZER_ROLE`");
+            await message.reply("No role provided, please provide a valid role: `!gb:offizer YOUR_OFFICER_ROLE`");
             return;
         }
 
@@ -26,15 +26,15 @@ export class OffizerCommand extends BaseCommand {
 
         const account = await this.getAccount();
 
-        const offizerRole = new Role();
-        offizerRole.account = account;
-        offizerRole.discordRoleId = discordRole.id;
-        if (!account.offizerRoles) {
-            account.offizerRoles = [offizerRole];
+        const officerRole = new Role();
+        officerRole.account = account;
+        officerRole.discordRoleId = discordRole.id;
+        if (!account.officerRoles) {
+            account.officerRoles = [officerRole];
         }
-        offizerRole.save();
+        officerRole.save();
 
         await account.save();
-        await message.channel.send("Offizer added!");
+        await message.channel.send("Officer added!");
     }
 };
