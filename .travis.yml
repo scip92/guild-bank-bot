@@ -9,6 +9,8 @@ deploy:
   provider: heroku
   api_key:
     secure: xnMWBNEpbB+UFmtfHBZikcQUUmaPwo5cE//+7i4ZGCTipVh6AQRPGXcAjBwmR+4BilOyaHLM55bu7dBnrCK9nXric8g7NGAAuSA+evF+Sjmyuh2I8gp154Gu7uK7Fedp0DeVZKWLHXwB4y7r+3yHLS16X/P5POyi+dZDg2PRN9z+1y+5QtYCFU/t4UE41WOGz+79JZjvmqVKZULk3Xo5WCm+H5dh1roD2SQgR7KzrqVe2bDDfDghzTnSoTHPokdDTtKI4nWHJMsRmJQU3x77AL8pF9mhMxwNlG4Gykyk4N1Zo1UAiSMuMpY4RJpXJdbJ9wbSnNZNApvWatIY+iUPNWYWI2p9SRKRI7wSqtNohHV94ymUeacWZuiZTel2yHmZXI44MncnKPNtPMp5LUmV/yf170IaDCrWbCH2ttWZvlbBvrrVsvc2rZeNDRfy4RtpgwwezwIBZNdSRrk6CeeF3BCxZ+MA2Zv8J/bGTGXUHStaoGjtmc7w+SnKGQ4iPYySRYMV1VwIPbT/UmL5LpcMrK5nodVdo/QXyzzvAX/e221djZ+4cani0pjdm4v0AfzzrmoREdFPjgM/NkVWD9Axog6h3QI9oSIAEuvLEvicDJuJY9xzEynXtVhqpJAuKifSM9TmLnCfysMZ6zmGaswyKSj1qwqaDOVjWJsvEk/tmM0=
-  app: guild-bank-bot
+  app:
+    master: guild-bank-bot
+    develop: guild-bank-bot-dev
   on:
     repo: scip92/guild-bank-bot
