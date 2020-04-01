@@ -11,7 +11,7 @@ export class GoldCommand extends BaseCommand {
     public description = "Get gold report";
 
     public async action(message: Message, args) {
-        const account = await Account.findByDiscordId(message.guild.id);
+        const account = await this.getAccount();
         let response = "```\nGold report:\n";
         let total = 0;
         const characters = await getCharacters(account);

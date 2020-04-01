@@ -11,7 +11,7 @@ export class InventoryCommand extends BaseCommand {
     public description = 'Get complete guild bank inventory report';
 
     public async action(message: Message, args: string[]) {
-        const account = await Account.findByDiscordId(message.guild.id);
+        const account = await this.getAccount();
         const items = await new ApiRequest().forAccount(account).getItems();
         const chunk = 25;
         let parts = 1;

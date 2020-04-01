@@ -16,6 +16,10 @@ export abstract class BaseCommand {
     public async execute(message: Message, args: string[]): Promise<void> {
         this.getAccount = async () => {
             const account = await Account.findByDiscordId(message.guild.id);
+            if(!account){
+                message.reply("No guild bank configured on this discord server. Run `setGuild` or `setToken` to configure a classic guild bank account.")
+                throw new Error("Guild Bank not configured yet");
+            }
             return account;
         }
 
