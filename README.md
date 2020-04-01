@@ -1,4 +1,4 @@
-# Classic Guild Bank - Discord Bot
+# Classic Guild Bank - Discord Bot ![Build Status](https://travis-ci.com/scip92/guild-bank-bot.svg?branch=master)
 
 This discord bot provides an easy integration for the World of Warcraft Classic Guild Bank Addon.
 Just setup the bot and everyone on your server can request a report.
