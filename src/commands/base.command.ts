@@ -13,9 +13,16 @@ export abstract class BaseCommand {
 
     protected getAccount: () => Promise<Account>;
 
+    protected getAccountOrNull: () => Promise<Account>;
+
     public async execute(message: Message, args: string[]): Promise<void> {
+        this.getAccountOrNull = async () => await Account.findByDiscordId(message.guild.id);
         this.getAccount = async () => {
-            const account = await Account.findByDiscordId(message.guild.id);
+            const account = await this.getAccountOrNull();
+            if (!account) {
+                message.reply("No guild bank configured on this discord server. Run `setGuild` or `setToken` to configure a classic guild bank account.")
+                throw new Error("Guild Bank not configured yet");
+            }
             return account;
         }
 
@@ -24,7 +31,7 @@ export abstract class BaseCommand {
             return;
         }
 
-        this.action(message, args);
+        await this.action(message, args);
     }
 
     private async hasPermission(member: GuildMember): Promise<boolean> {
@@ -32,11 +39,10 @@ export abstract class BaseCommand {
             return true;
         }
         return await this.hasMemberOfficerRole(member);
-
     }
 
     private async hasMemberOfficerRole(member: GuildMember): Promise<boolean> {
-        const account = await this.getAccount();
+        const account = await this.getAccountOrNull();
         if (!account) {
             return true;
         }
@@ -46,5 +52,4 @@ export abstract class BaseCommand {
         const filtered = account.officerRoles.filter(or => member.roles.array().find(r => r.id === or.discordRoleId));
         return filtered.length > 0;
     }
-
 }
