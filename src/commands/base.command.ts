@@ -13,7 +13,7 @@ export abstract class BaseCommand {
 
     protected getAccount: () => Promise<Account>;
 
-    private getAccountOrNull: () => Promise<Account | null>;
+    protected getAccountOrNull: () => Promise<Account>;
 
     public async execute(message: Message, args: string[]): Promise<void> {
         this.getAccountOrNull = async () => await Account.findByDiscordId(message.guild.id);
@@ -31,7 +31,7 @@ export abstract class BaseCommand {
             return;
         }
 
-        this.action(message, args);
+        await this.action(message, args);
     }
 
     private async hasPermission(member: GuildMember): Promise<boolean> {
