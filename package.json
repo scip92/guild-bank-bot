@@ -1,11 +1,12 @@
 {
     "name": "guild-bank-bot",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Classic guild bank discord bot",
     "author": "scip92",
     "scripts": {
         "tsc": "tsc",
-        "start": "ts-node src/index.ts"
+        "start": "ts-node src/index.ts",
+        "watch": "tsc-watch --onSuccess \"npm run start\""
     },
     "engines": {
         "node": "10.x"
@@ -18,9 +19,17 @@
         "dotenv": "^8.2.0",
         "pg": "^7.18.2",
         "reflect-metadata": "^0.1.13",
-        "sqlite3": "^4.1.1",
+        "sqlite3": "^5.0.0",
         "ts-node": "^8.6.2",
         "typeorm": "^0.2.24",
         "typescript": "^3.8.2"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^4.2.0",
+        "@typescript-eslint/parser": "^4.2.0",
+        "eslint": "^7.2.0",
+        "eslint-config-airbnb-base": "^14.2.0",
+        "eslint-plugin-import": "^2.21.2",
+        "tsc-watch": "^4.2.9"
     }
 }
