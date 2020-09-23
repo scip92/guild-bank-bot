@@ -3,3 +3,5 @@ data/*
 .idea/
 node_modules
 data/guilds.json
+src/**.*.js
+src/**/*.js.map

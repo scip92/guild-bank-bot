@@ -8,7 +8,7 @@ export class GoldCommand extends BaseCommand {
 
     public name = "gold";
 
-    public description = "Get gold report";
+    public description = "Get gold report\nUsage: `!gb:gold`";
 
     public async action(message: Message, args) {
         const account = await this.getAccount();
