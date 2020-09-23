@@ -20,7 +20,7 @@ export class TokenRequest {
 
     public getGuildId(): Promise<string> {
         return createHttpClient(this.token).get("/guild/GetGuilds").then((result) => {
-            return result.data[1].id;
+            return result.data[0].id;
         })
     }
 }
@@ -72,8 +72,7 @@ export class AccountRequest {
                 }
             ]
         }
-        const response = await this.httpClient.post("/guild/RequestItems", itemRequest );
-        console.log(response)
+        await this.httpClient.post("/guild/RequestItems", itemRequest );
     }
 
     private async getPrivateCharacters(): Promise<Character[]> {
