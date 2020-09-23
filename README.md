@@ -18,6 +18,8 @@ Just setup the bot and everyone on your server can request a report.
 ### Option 2: Private Classic Guild Bank
 
 * Get API Token from [ClassicGuildBank](https://classicguildbank.com)
+* Go to {UserName} > Preferences > API Token > Reveal and copy
+![Token](doc/Token.png)
 * Run `!gb:setToken YOUR_API_TOKEN` to configure classic guild bank account
 
 ## Local Development Setup
