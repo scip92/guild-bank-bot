@@ -1,12 +1,13 @@
-import {config} from "dotenv";
+import { config } from 'dotenv';
+
+import { createConnection } from 'typeorm';
+import { buildConnectionOptions } from './connection.options';
+import { createDiscordClient } from './discord.client';
+
 config();
 
-import {createConnection} from "typeorm";
-import {buildConnectionOptions} from "./connection.options";
-import {createDiscordClient} from "./discord.client";
-
 const main = async () => {
-    await createConnection(buildConnectionOptions());
-    await createDiscordClient();
+  await createConnection(buildConnectionOptions());
+  await createDiscordClient();
 };
 main().catch(console.error);
