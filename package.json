@@ -13,7 +13,7 @@
     "dependencies": {
         "@types/axios": "^0.14.0",
         "@types/node": "^13.7.4",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "discord.js": "^11.5.1",
         "dotenv": "^8.2.0",
         "pg": "^7.18.2",
