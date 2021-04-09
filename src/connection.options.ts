@@ -12,7 +12,7 @@ export const buildConnectionOptions = (): ConnectionOptions => {
             synchronize: true,
             type: "postgres",
             url: process.env.DATABASE_URL,
-            sslmode: "require",
+            ssl: true,
         } as PostgresConnectionOptions;
     }
     if (connectionType === "sqlite") {
