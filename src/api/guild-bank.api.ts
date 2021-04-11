@@ -61,6 +61,20 @@ export class AccountRequest {
         return this.getPrivateCharacters();
     }
 
+    public async requestItem(itemId: string, characterName: string, quantity): Promise<void> {
+        const itemRequest = {
+            characterName,
+            GuildId: this.account.classicGuildBankId,
+            Gold: 0,
+            RequestItemModels: [
+                {
+                    itemId, quantity
+                }
+            ]
+        }
+        await this.httpClient.post("/guild/RequestItems", itemRequest );
+    }
+
     private async getPrivateCharacters(): Promise<Character[]> {
         const content = await this.httpClient.get(`/guild/GetCharacters/${this.account.classicGuildBankId}`);
         return content.data;

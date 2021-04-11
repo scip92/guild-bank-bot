@@ -1,7 +1,6 @@
 import * as Discord from "discord.js";
 import { Message } from "discord.js";
 import { ApiRequest } from "../api/guild-bank.api";
-import { Account } from "../models/account";
 import { prefix } from "../util/constants";
 import { BaseCommand } from "./base.command";
 
@@ -9,11 +8,16 @@ export class SearchCommand extends BaseCommand {
 
     public readonly name = "search";
 
-    public description = "Find specific item in inventory";
 
-    public usage = `${prefix}${this.name} ITEM_NAME/ITEM_ID`
+    private readonly usage = `Usage:   \`${prefix}${this.name} {ITEM_ID/ITEM_NAME}\`\nExample:\`${prefix}${this.name} greater fire\``
+
+    public description = `Find specific item in inventory\n${this.usage}`;
 
     public async action(message: Message, args: string[]) {
+        if (args.length === 0) {
+            await message.channel.send(`No search value specified.\n${this.usage}`)
+            return;
+        }
         const searchString = args.join(' ');
         const account = await this.getAccount();
         const items = await new ApiRequest().forAccount(account).getItems();

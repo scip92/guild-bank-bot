@@ -1,14 +1,13 @@
 import * as Discord from "discord.js";
 import { Message } from "discord.js";
 import { ApiRequest } from "../api/guild-bank.api";
-import { Account } from "../models/account";
 import { BaseCommand } from "./base.command";
 
 export class InventoryCommand extends BaseCommand {
 
     public name = 'inventory';
 
-    public description = 'Get complete guild bank inventory report';
+    public description = 'Get complete guild bank inventory report as private message';
 
     public async action(message: Message, args: string[]) {
         const account = await this.getAccount();
@@ -24,4 +23,4 @@ export class InventoryCommand extends BaseCommand {
         }
         await message.delete();
     }
-};
+}

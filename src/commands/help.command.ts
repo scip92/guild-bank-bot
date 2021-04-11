@@ -10,11 +10,11 @@ export class HelpCommand extends BaseCommand {
     public description = 'Help command';
 
     public async action(message: Message, args: string[]) {
-        const commands = getAllCommands().filter(f => f.name != "help");
+        const commands = getAllCommands();
         const commandCheat = new RichEmbed().setTitle('Guild Bank Commands');
         commands.forEach(command => {
             commandCheat.addField(`${prefix}${command.name}`, command.description, false);
         });
         await message.channel.send(commandCheat);
     }
-};
+}

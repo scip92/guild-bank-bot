@@ -1,32 +1,36 @@
 // @ts-nocheck
-import * as Discord from "discord.js";
-import {getAllCommands} from "./util/command-helper";
-import {Account} from "./models/account";
-import {prefix} from "./util/constants";
+import * as Discord from 'discord.js';
+import { getAllCommands } from './util/command-helper';
+import { Account } from './models/account';
+import { prefix } from './util/constants';
 
 export const createDiscordClient = async () => {
     const client = new Discord.Client();
     client.commands = new Discord.Collection();
-    getAllCommands().forEach(c => client.commands.set(c.name.toLowerCase(), c));
+    getAllCommands().forEach((c) => client.commands.set(c.name.toLowerCase(), c));
 
     client.on('ready', () => {
-        console.log(`Logged in as ${client.user.tag}!`)
+        console.log(`Logged in as ${client.user.tag}!`);
     });
 
-    client.on("guildCreate", async (guild: Account) => {
+    client.on('guildCreate', async (guild: Account) => {
         await guild.owner.send('Thanks! You can use `!gb:help` to discover commands.');
         console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
     });
 
-    client.on("message", async msg => {
+    client.on('message', async (msg: Discord.Message) => {
+        const args: string[] = msg.content.slice(prefix.length).split(/ +/);
+        if (msg.content === prefix.slice(0, 3)) {
+            client.commands.get('help').execute(msg, args);
+            return;
+        }
         if (!msg.content.startsWith(prefix) || msg.author.bot) {
             return;
         }
-        const args: string[] = msg.content.slice(prefix.length).split(/ +/);
         const command = args.shift().toLowerCase();
         if (!(await client.commands.has(command))) {
             console.log(`Command: ${command} not found, display help.`);
-            client.commands.get("help").execute(msg, args);
+            client.commands.get('help').execute(msg, args);
             return;
         }
         try {
@@ -35,7 +39,7 @@ export const createDiscordClient = async () => {
             await commandHandler.execute(msg, args);
         } catch (error) {
             console.error(error);
-            await msg.reply('there was an error trying to execute that command!');
+            await msg.reply('there was an error executing that command!');
         }
     });
 

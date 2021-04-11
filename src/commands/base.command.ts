@@ -20,14 +20,14 @@ export abstract class BaseCommand {
         this.getAccount = async () => {
             const account = await this.getAccountOrNull();
             if (!account) {
-                message.reply("No guild bank configured on this discord server. Run `setGuild` or `setToken` to configure a classic guild bank account.")
+                await message.reply("No guild bank configured on this discord server. Run `setGuild` or `setToken` to configure a classic guild bank account.")
                 throw new Error("Guild Bank not configured yet");
             }
             return account;
         }
 
         if ((await this.hasPermission(message.member)) === false) {
-            message.reply("sry permission denied. You need to be an offizer to do this")
+            await message.reply("sry permission denied. You need to be an offizer to do this")
             return;
         }
 
